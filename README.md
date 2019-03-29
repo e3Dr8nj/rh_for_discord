@@ -1,7 +1,8 @@
-Raw Handler. Commands, events, and boots generator. For discord API
-hello world
-create file 'main.js' and put this code there
+## Raw Handler. Commands, events, and boots generator. For discord API
 
+### hello world
+create file 'main.js' and put this code there
+```js
     const Discord = require("discord.js");
     const client = new Discord.Client();
     const fs = require("fs");
@@ -13,8 +14,9 @@ create file 'main.js' and put this code there
     }catch(err){console.log(err);}; });
 
    client.login(process.env.TOKEN_BOT);
+```
 create dir 'rh_modules' ,and put file 'hello_world.js' add there following code
-
+```js
 module.exports.commands = {};
 
 module.exports.commands.printHelloWorld={aliase:'hello', run:async(client,message,args)=>{try{
@@ -22,9 +24,12 @@ module.exports.commands.printHelloWorld={aliase:'hello', run:async(client,messag
         message.channel.send('Hello World!!!');
 
 }catch(err){console.log(err);};}};//
-run main.js file and send '!hello'
+```
+run main.js file and send '!hello' 
 
-extended
+## extended
+```js
+
     const Discord = require("discord.js");
     const client = new Discord.Client();
     const fs = require("fs");
@@ -64,7 +69,12 @@ extended
    }catch(err){console.log(err);}; });
 
    client.login(process.env.TOKEN_BOT);
-simple module example
+```
+
+## simple module example
+
+```js
+
 //________________________________________TOOLS__________________________________________
 let delay=async(duration)=>{await new Promise(resolve=>setTimeout(resolve,duration))}; 
      //* for delay inside async function, use it instead setTimeout
@@ -117,6 +127,9 @@ module.exports.events_primitive.SOME_EVENT_NAME={run:async(client,event)=>{try{
       //some code here
 }catch(err){console.log(err);};}};//
 //module.exports.events_primitive.SOME_EVENT_NAME.RH_IGNORE = true;//add this line to ignore this primitive event trigger
+
+```
+```ini
    EVENTS:
 channelCreate
 channelDelete
@@ -201,4 +214,8 @@ TYPING_START
 VOICE_SERVER_UPDATE
 RELATIONSHIP_ADD
 RELATIONSHIP_REMOVE
-// read more about events,websocet events and client methods :https://discord.js.org
+```
+//
+read more about events,websocet events and client methods :https://discord.js.org
+https://github.com/e3Dr8nj/rh_for_discord
+
