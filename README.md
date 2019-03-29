@@ -7,7 +7,7 @@ create file 'main.js' and put this code there
     const client = new Discord.Client();
     const fs = require("fs");
 
-    let RH=require(`./raw.js`);
+    let RH=require(`rh_for_discord`);
 
     client.on("raw", (...args) => {try{
         RH.run(client,...args);
@@ -35,7 +35,7 @@ run main.js file and send '!hello'
     const fs = require("fs");
     client.SERVER_ID='111111111111111';//<-------PUT ID SERVER HERE
 
-    let RH=require(`./raw.js`);
+    let RH=require(`rh_for_discord`);
 
 
     RH.folder_name='rh_modules';//<-----NAME OF FOLDER THERE YOUR MODULES ARE
