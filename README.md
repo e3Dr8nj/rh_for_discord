@@ -1,3 +1,4 @@
+(rh_discord_bot is the sourse for npm module rh_discord_bot https://www.npmjs.com/package/rh_discord_bot )
 ## Raw Handler. Commands, events, and boots generator. For discord API
 
 ### hello world
