@@ -7,13 +7,14 @@ create file 'main.js' and put this code there
     const client = new Discord.Client();
     const fs = require("fs");
 
-    let RH=require(`rh_for_discord`);
+    let RH=require(`rh_discord_bot`);
 
+ RH.folder_name='...';//<-----PATH TO FOLDER (with folder name) THERE YOUR MODULES ARE
     client.on("raw", (...args) => {try{
         RH.run(client,...args);
     }catch(err){console.log(err);}; });
 
-   client.login(process.env.TOKEN_BOT);
+   client.login(...);//<------TOKEN HERE
 ```
 create dir 'rh_modules' ,and put file 'hello_world.js' add there following code
 ```js
@@ -33,13 +34,13 @@ run main.js file and send '!hello'
     const Discord = require("discord.js");
     const client = new Discord.Client();
     const fs = require("fs");
-    client.SERVER_ID='111111111111111';//<-------PUT ID SERVER HERE
+    client.SERVER_ID='...';//<-------PUT ID SERVER HERE
 
-    let RH=require(`rh_for_discord`);
+    let RH=require(`rh_discord_bot`);
 
 
-    RH.folder_name='rh_modules';//<-----NAME OF FOLDER THERE YOUR MODULES ARE
-    //name of folder there are modules for build RH event handler;  default value:'rh_modules'
+    RH.folder_name='...';//<-----PATH TO FOLDER (with folder name) THERE YOUR MODULES ARE
+    //full path to folder there are modules for build RH event handler;  default value:none, must be specified
 
      RH.server_id=client.SERVER_ID;
    //set main server id, needed be set for fetching members and messages; default value:client.SERVER_ID;
@@ -68,7 +69,7 @@ run main.js file and send '!hello'
      RH.run(client,...args);
    }catch(err){console.log(err);}; });
 
-   client.login(process.env.TOKEN_BOT);
+   client.login('...');//<--------TOKEN HERE 
 ```
 
 ## simple module example
@@ -91,7 +92,7 @@ let random =(max)=>{ return Math.floor(Math.random()*max);};
 
 //___________________________ETERNAL_VARIABLE_PART
 module.exports.e={};
-module.exports.e.test="test";
+   module.exports.e.test="test";
 //_________________________________________BOOTS_PART___________________________________________________
 module.exports.boots = {}; 
 
@@ -218,4 +219,3 @@ RELATIONSHIP_REMOVE
 //
 read more about events,websocet events and client methods :https://discord.js.org
 https://github.com/e3Dr8nj/npm_mdl_test
-
