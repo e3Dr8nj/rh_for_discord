@@ -6,6 +6,10 @@ exports.prefix='!';
 exports.fetch_members=true;
 exports.fetch_messages=true;
 exports.server_id='';
+exports.boots=true;
+exports.commands=true;
+exports.events=true;
+exports.primitive_events=true;
 
 exports.delay=async(duration)=>{ return new Promise((resolve)=>{return setTimeout(resolve,duration)}); };
 
@@ -39,8 +43,9 @@ exports.run = async(client,event)=>{try{
   
    client.rh.delay=async(duration)=>{await new Promise(resolve=>setTimeout(resolve,duration))}; 
    
-
-   const folder_name=(module.exports.folder_name)?module.exports.folder_name:'rh_modules';
+   if(!module.exports.folder_name) return console.log('RH_folder_name needed be set');
+   //const folder_name=(module.exports.folder_name)?module.exports.folder_name:'rh_modules';
+   const folder_name = module.exports.folder_name;
    if (module.exports.log) console.log('RH loading modules from '+folder_name);
    await exports.delay(1000);
    
@@ -92,11 +97,11 @@ module.exports.setBoot=async(client,path,from)=>{try{
         return;
    };//if external end
    let fs = require('fs');
-   fs.readdir("./"+path+"/", (err, files) => {try{
+   fs.readdir(path+"/", (err, files) => {try{
   //    if (err) return console.error(err);
 
     files.forEach(file => {try{
-            let target_module = require(`./${path}/${file}`);
+            let target_module = require(`${path}/${file}`);
             let moduleName = file.split(".")[0];
             module.exports.sb0(client,target_module,path,moduleName);
      }catch(err){console.log(err);};});//forEachfile end
@@ -127,6 +132,7 @@ module.exports.sb0=async(client,target_module,path,moduleName)=>{try{
 //________________________________COMMAND_________
 //_________________SET_COMMANDS
 module.exports.setCommand=async(client,path,from)=>{try{
+   if (!module.exports.commands) return;
    await exports.delay(1000);
   // if(from=='one'){};
    if(from=='external') {
@@ -135,10 +141,10 @@ module.exports.setCommand=async(client,path,from)=>{try{
    };//if external end
    let fs = require('fs');
 
-  fs.readdir("./"+path+"/", (err, files) => {try{
+  fs.readdir(path+"/", (err, files) => {try{
    //if (err) return console.error(err);
     files.forEach(file => {try{ 
-            let target_module = require(`./${path}/${file}`);
+            let target_module = require(`${path}/${file}`);
             let moduleName = file.split(".")[0];
            module.exports.sc0(client,target_module,path,moduleName);
      }catch(err){console.log(err);};});//forEach end
@@ -174,16 +180,17 @@ module.exports.sc0=async(client,target_module,path,moduleName)=>{try{
 //_____________________________________EVENT
 //_____________________SET_EVENTS
 module.exports.setEvent=async(client,path,from)=>{try{
+   if(!module.exports.events) return;
    await exports.delay(1000);
    let fs = require('fs');
    if(from=='external'){
         module.exports.external_module.map(m=>module.exports.se0(client,m,'..external..',m.name));
         return;
    };//if external end
-   fs.readdir("./"+path+"/", (err, files) => {try{
+   fs.readdir(path+"/", (err, files) => {try{
       if (err) return console.error(err);
       files.forEach(file => {try{
-            let target_module = require(`./${path}/${file}`);
+            let target_module = require(`${path}/${file}`);
             let moduleName = file.split(".")[0];
             module.exports.se0(client,target_module,path,moduleName);
         }catch(err){console.log(err);};});//if end
@@ -210,17 +217,17 @@ module.exports.se0=async(client,target_module,path,moduleName)=>{try{
 //_____________________________________EVENT_PRIMITIVE
 //_____________________SET_EVENTS
 module.exports.setEvent_primitive=async(client,path,from)=>{try{
-
+   if(!module.exports.primitive_events) return;
    await exports.delay(1000);
    let fs = require('fs');
     if(from=='external'){
         module.exports.external_module.map(m=>module.exports.sep0(client,m,'..external..',m.name));
         return;
    };//if external end
-   fs.readdir("./"+path+"/", (err, files) => {try{
+   fs.readdir(path+"/", (err, files) => {try{
       if (err) return console.error(err);
       files.forEach(file => {try{
-            let target_module = require(`./${path}/${file}`);
+            let target_module = require(`${path}/${file}`);
             let moduleName = file.split(".")[0];
             module.exports.sep0(client,target_module,path,moduleName);
        }catch(err){console.log(err);};});//if end
@@ -250,7 +257,7 @@ module.exports.sep0=async(client,target_module,path,moduleName)=>{try{
 
 //____________fetchMessages
 module.exports.fetchMessages={ on:true,  run:async(client,id)=>{try{
-
+     if(!module.exports.fetch_messages) return;
      if(module.exports.log) console.log('fetching messages');
            let ch_ids=[];
            let server = client.guilds.get(id);
@@ -276,7 +283,7 @@ module.exports.fetchMessages={ on:true,  run:async(client,id)=>{try{
 
 //____________fetchMembers
 module.exports.fetchMembers={ on:true,  run:async(client,id)=>{try{
-
+     if (!module.exports.fetch_members) return;
      let server=await client.guilds.get(module.exports.server_id);
       if(!server) return;
       if(module.exports.log) console.log('Fetching members from server '+server.name);
@@ -295,3 +302,4 @@ module.exports.test={ on:true,  run:async()=>{try{
 
 }catch(err){console.log(err);};}};//
                       
+
